@@ -37,6 +37,26 @@ The goal is to consume the **ViaCEP API** (Brazilian postal code service) using 
 
 3. The response is deserialized into a strongly typed Apex object.
 
+## 🏗️ Integration Architecture
+
+The integration with the public **ViaCEP** API was implemented to automatically populate address data in **Accounts, Leads, and Contacts** based on the ZIP code provided by the user.
+
+The flow works as follows:
+
+1. The user enters a **ZIP code** in a Salesforce record.  
+2. An **Apex Controller** is triggered to perform the HTTP request.  
+3. The **ViaCEP service** returns a JSON response with the address details.  
+4. Apex processes the response and updates the corresponding fields (street, neighborhood, city, state) on the record.  
+
+### Architecture Diagram
+
+    Salesforce User --> UI [Lightning Interface / Form]
+    UI --> ApexController [Apex Controller]
+    ApexController --> HTTP Callout [ViaCEP API]
+    ViaCEP --> ApexController
+    ApexController --> Salesforce DB [(Objects: Account, Lead, Contact)]
+
+
 ## ✅ Unit Tests
 - ViaCEPServiceTest validates success and error scenarios.
 - Covers both valid and invalid CEPs.
