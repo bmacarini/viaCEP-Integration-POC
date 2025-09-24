@@ -1,18 +1,46 @@
-# Salesforce DX Project: Next Steps
+# Salesforce External Integration – ViaCEP API (POC)
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+## 📌 Overview
+This project is a proof of concept (POC) that demonstrates how to integrate Salesforce with an external REST API.  
+The goal is to consume the **ViaCEP API** (Brazilian postal code service) using **Apex callouts** and **Named Credentials**, following Salesforce best practices for integrations.
 
-## How Do You Plan to Deploy Your Changes?
+## 🎯 Objectives
+- Show how to configure **Named Credentials** for secure authentication.
+- Demonstrate an **Apex class** that performs a callout to an external service.
+- Handle **JSON responses** and map them into Salesforce objects.
+- Include **unit tests** to ensure reliability and maintainability.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+## 🛠️ Tech Stack
+- **Apex** for HTTP callouts and JSON parsing  
+- **Salesforce Named Credentials** for external authentication  
+- **Test Classes** to validate logic and maintain coverage 
 
-## Configure Your Salesforce DX Project
+## 📂 Project Structure
+/force-app/main/default/classes
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+    ├─ ViaCEPService.cls (Apex class for API integration)
 
-## Read All About It
+    ├─ ViaCEPServiceTest.cls (Unit tests)
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+## 🚀 How It Works
+1. Configure a **Named Credential** in Salesforce:
+   - URL: `https://viacep.com.br/ws/`
+   - Authentication: None (public API)  
+
+
+2. Use the `ViaCEPService` class to query an address by postal code (CEP).  
+   Example:
+   ```apex
+   String cep = '01001000'; 
+   ViaCEPAddress result = ViaCEPService.getAddress(cep);
+   System.debug(result);
+
+3. The response is deserialized into a strongly typed Apex object.
+
+## ✅ Unit Tests
+- ViaCEPServiceTest validates success and error scenarios.
+- Covers both valid and invalid CEPs.
+
+## 📖 References
+- [ViaCEP API Documentation](https://viacep.com.br/)
+- [Salesforce Named Credentials Guide](https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_callouts_named_credentials.htm)
