@@ -18,6 +18,8 @@ The goal is to consume the **ViaCEP API** (Brazilian postal code service) using 
 ## 📂 Project Structure
 /force-app/main/default/classes
 
+    ├─ AddressDTO.cls (Address DTO for structured API response)
+
     ├─ ViaCEPService.cls (Apex class for API integration)
 
     ├─ ViaCEPServiceTest.cls (Unit tests)
