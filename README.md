@@ -24,7 +24,7 @@ The goal is to consume the **ViaCEP API** (Brazilian postal code service) using 
 
 ## 🚀 How It Works
 1. Configure a **Named Credential** in Salesforce:
-   - URL: `https://viacep.com.br/ws/`
+   - URL: `https://viacep.com.br`
    - Authentication: None (public API)  
 
 
