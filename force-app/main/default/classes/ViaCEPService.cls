@@ -1,10 +1,19 @@
 public with sharing class ViaCEPService {
-    public static HttpResponse getAddress(String cep) {
+    public static AddressDTO getAddress(String cep) {
         HttpRequest request = new HttpRequest();
         request.setEndpoint('callout:viaCEP/ws/' + cep + '/json/');
         request.setMethod('GET');
+
         Http http = new Http();
         HttpResponse response = http.send(request);
-        return response;
+        Map<String,Object> jsonResponse = (Map<String,Object>) JSON.deserializeUntyped(response.getBody());
+
+        AddressDTO address = new AddressDTO();
+        address.logradouro = (String) jsonResponse.get('logradouro');
+        address.bairro = (String) jsonResponse.get('bairro');
+        address.localidade = (String) jsonResponse.get('localidade');
+        address.uf = (String) jsonResponse.get('uf');
+        
+        return address;
     }
 }
