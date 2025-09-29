@@ -24,6 +24,19 @@ The goal is to consume the **ViaCEP API** (Brazilian postal code service) using 
 
     ├─ ViaCEPServiceTest.cls (Unit tests)
 
+## ⚙️ CI/CD Pipeline
+This project includes a **GitHub Actions workflow** to automate Salesforce deployments and testing:
+
+- **Scratch Org Creation** – A temporary org is created for each PR to validate changes.
+- **Source Deployment** – Apex classes, DTOs, and metadata are pushed automatically to the scratch org.
+- **Automated Apex Tests** – All tests, including ViaCEPServiceTest, run automatically to ensure code reliability.
+- **Scratch Org Deletion** – Temporary orgs are cleaned up after tests.
+
+**Workflow triggers:**
+
+- Push or PR to `develop` → validates code in a scratch org.
+- Merge to `main` → represents production-ready code.
+
 ## 🚀 How It Works
 1. Configure a **Named Credential** in Salesforce:
    - URL: `https://viacep.com.br`
@@ -36,7 +49,6 @@ The goal is to consume the **ViaCEP API** (Brazilian postal code service) using 
    String cep = '01001000'; 
    ViaCEPAddress result = ViaCEPService.getAddress(cep);
    System.debug(result);
-
 3. The response is deserialized into a strongly typed Apex object.
 
 ## 🏗️ Integration Architecture
@@ -57,8 +69,7 @@ The flow works as follows:
     ApexController --> HTTP Callout [ViaCEP API]
     ViaCEP --> ApexController
     ApexController --> Salesforce DB [(Objects: Account, Lead, Contact)]
-
-
+    
 ## ✅ Unit Tests
 - ViaCEPServiceTest validates success and error scenarios.
 - Covers both valid and invalid CEPs.
