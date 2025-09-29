@@ -17,7 +17,7 @@ jobs:
         run: npm install --global @salesforce/cli
 
       - name: Authenticate DevHub
-        run: echo ${{ secrets.SFDX_AUTH_URL }} | sf org login sfdx-url --set-default --alias DevHub
+        run: echo ${{ secrets.SFDX_AUTH_URL }} | sf org login sfdx-url --set-default --alias DevHub --sfdx-url-stdin
 
       - name: Create Scratch Org
         run: sf org create scratch --definition-file config/project-scratch-def.json --alias ci_scratch --duration-days 1 --set-default
