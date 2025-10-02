@@ -1,0 +1,40 @@
+<template>
+    <div class="slds-box slds-theme_default slds-m-top_medium slds-m-bottom_x-large">
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="search" label="Buscar endereço" placeholder="Digite o CEP (somente números)"
+                field-level-help="O CEP deve conter 8 dígitos" minlength="8" maxlength="8"
+                message-when-too-short="O CEP tem menos de 8 dígitos." onchange={handleInputChange} value={textValue}
+                onclear={handleClear} message-when-value-missing="Informe o CEP." required>
+            </lightning-input>
+            <div class="slds-m-top_small slds-m-bottom_medium">
+                <lightning-button variant="brand" label="Buscar" title="Primary action" onclick={handleSearch}>
+                </lightning-button>
+            </div>
+            <div class="slds-p-top_medium">
+                <div class="c-container slds-is-relative">
+                    <div lwc:if={isLoading} class="slds-p-top_medium">
+                        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                    </div>
+                    <lightning-layout lwc:if={address.logradouro}>
+                        <lightning-layout-item padding="around-small">
+                            <strong>Logradouro</strong>
+                            <p class="slds-m-top_small">{address.logradouro}</p>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small">
+                            <strong>Bairro</strong>
+                            <p class="slds-m-top_small">{address.bairro}</p>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small">
+                            <strong>Localidade</strong>
+                            <p class="slds-m-top_small">{address.localidade}</p>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small">
+                            <strong>UF</strong>
+                            <p class="slds-m-top_small">{address.uf}</p>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
