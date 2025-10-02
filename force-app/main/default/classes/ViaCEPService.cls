@@ -1,4 +1,5 @@
 public with sharing class ViaCEPService {
+    @AuraEnabled(cacheable=false)
     public static AddressDTO getAddress(String cep) {
         HttpRequest request = new HttpRequest();
         request.setEndpoint('callout:viaCEP/ws/' + cep + '/json/');
