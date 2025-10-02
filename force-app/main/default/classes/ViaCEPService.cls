@@ -7,6 +7,11 @@ public with sharing class ViaCEPService {
 
         Http http = new Http();
         HttpResponse response = http.send(request);
+
+        if(response.getStatusCode() != 200) {
+            throw new CalloutException('Erro: ' + response.getStatusCode());
+        }
+
         Map<String,Object> jsonResponse = (Map<String,Object>) JSON.deserializeUntyped(response.getBody());
 
         AddressDTO address = new AddressDTO();
